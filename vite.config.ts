@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/Fitness.github.io/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
