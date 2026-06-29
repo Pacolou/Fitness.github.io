@@ -26,12 +26,12 @@ export const progressData = [
 ];
 
 export const conditioningData = [
-  { area: "Walking", score: 88 },
-  { area: "Bike", score: 76 },
+  { area: "Walking", score: 90 },
+  { area: "Bike", score: 86 },
   { area: "Step-ups", score: 60 },
   { area: "Core", score: 70 },
   { area: "Mobility", score: 74 },
-  { area: "Pack Readiness", score: 58 },
+  { area: "Pack Readiness", score: 60 },
 ];
 
 export const readinessSummary = [
@@ -78,15 +78,21 @@ export const readinessSummary = [
 ];
 
 export const readinessMilestones = [
-  { label: "60+ min unloaded treadmill/walk", status: "Done" },
-  { label: "58 min weighted vest walk", status: "Done" },
-  { label: "30 min travel treadmill with foot good", status: "Done" },
-  { label: "First 60 min weighted vest walk", status: "Next" },
+  { label: "30 min treadmill completed", status: "Done" },
+  { label: "45 min treadmill completed", status: "Done" },
+  { label: "60 min treadmill completed", status: "Done" },
+  { label: "First 60 min weighted vest session", status: "Done" },
+  { label: "38.90 km Biktrix conditioning ride", status: "Done" },
+  { label: "Trail camera field hikes", status: "Done" },
+  { label: "Pack progression started", status: "Done" },
   { label: "First 20 lb pack session", status: "Done" },
   { label: "25 lb pack session", status: "Next" },
   { label: "30 lb pack session", status: "Pending" },
-  { label: "90 min outdoor hike", status: "Pending" },
-  { label: "2 hr outdoor hike with elevation", status: "Pending" },
+  { label: "40 lb pack session", status: "Pending" },
+  { label: "50 lb pack session", status: "Pending" },
+  { label: "90 min loaded hike", status: "Pending" },
+  { label: "2 hr loaded hike", status: "Pending" },
+  { label: "Back-to-back pack conditioning days", status: "Pending" },
 ];
 
 export const workouts = [
@@ -1245,13 +1251,20 @@ export const huntingMilestones = [
   { label: "First workout completed", status: "Done" },
   { label: "First 30 min walk", status: "Done" },
   { label: "First 45 min walk", status: "Done" },
+  { label: "First 60 min treadmill session", status: "Done" },
   { label: "First 10 lb vest walk", status: "Done" },
   { label: "First 45 min vest walk", status: "Done" },
-  { label: "58 min weighted vest treadmill session", status: "Done" },
-  { label: "First 60 min vest walk", status: "Next" },
+  { label: "First 60 min weighted vest walk", status: "Done" },
+  { label: "38.90 km Biktrix endurance ride", status: "Done" },
+  { label: "Trail camera field hikes", status: "Done" },
   { label: "Start hunting pack progression", status: "Done" },
+  { label: "First 20 lb pack session", status: "Done" },
+  { label: "25 lb pack session", status: "Next" },
   { label: "30 lb pack session", status: "Pending" },
-  { label: "2 hr outdoor hike", status: "Pending" },
+  { label: "40 lb pack session", status: "Pending" },
+  { label: "50 lb pack session", status: "Pending" },
+  { label: "90 min loaded outdoor hike", status: "Pending" },
+  { label: "2 hr loaded outdoor hike", status: "Pending" },
   { label: "Fall hunting-ready conditioning block", status: "Pending" },
 ];
 
@@ -1272,6 +1285,39 @@ export const personalRecords = [
   { metric: "Longest Biktrix ride", value: "38.90 km" },
   { metric: "Longest Biktrix ride time", value: "1:52:26" },
   { metric: "Most Biktrix elevation gain", value: "653 m" },
+];
+
+export const mountainReadiness = [
+  {
+    metric: "Cardio",
+    score: 86,
+    current: "60 min vest treadmill + 38.90 km ride",
+    goal: "90 min steady loaded conditioning",
+  },
+  {
+    metric: "Leg Strength",
+    score: 72,
+    current: "Step-ups, incline treadmill, field hikes",
+    goal: "Consistent loaded step-ups and climbs",
+  },
+  {
+    metric: "Pack Tolerance",
+    score: 40,
+    current: "20 lb pack for 45 min",
+    goal: "50 lb pack and 2 hr loaded hike",
+  },
+  {
+    metric: "Foot Health",
+    score: 92,
+    current: "Good through vest, bike, trail hikes, and pack",
+    goal: "Stable across repeated loaded days",
+  },
+  {
+    metric: "Recovery",
+    score: 78,
+    current: "Rebuilding routine after vacation",
+    goal: "Consistent weekly rhythm",
+  },
 ];
 
 export const strengthTracker = [

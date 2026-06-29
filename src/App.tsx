@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { CalendarDays, Dumbbell, Footprints, HeartPulse, Mountain, Ruler, Scale, Search, TrendingDown, Bike, CheckCircle2, AlertTriangle, Box, Activity } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
-import { stats, progressData, conditioningData, readinessSummary, readinessMilestones, workouts, equipment, priorities, phasePlan, trackerRows, workoutLog, huntingMilestones, personalRecords, strengthTracker } from "./fitnessData";
+import { stats, progressData, conditioningData, readinessSummary, readinessMilestones, workouts, equipment, priorities, phasePlan, trackerRows, workoutLog, huntingMilestones, personalRecords, mountainReadiness, strengthTracker } from "./fitnessData";
 
 type BasicProps = {
   children?: React.ReactNode;
@@ -226,6 +226,7 @@ export default function HuntingPrepDashboard() {
   const weightFromHigh = stats.highestWeight - stats.currentWeight;
   const phaseProgress = Math.min(100, Math.round((stats.weeksCompleted / 15) * 100));
   const packProgress = Math.min(100, Math.round((stats.packCurrent / stats.packGoal) * 100));
+  const overallMountainReadiness = Math.round(mountainReadiness.reduce((sum, item) => sum + item.score, 0) / mountainReadiness.length);
 
   const filteredWorkouts = useMemo(() => {
     return workouts.filter((w) => {
@@ -344,6 +345,40 @@ export default function HuntingPrepDashboard() {
                 </CardContent>
               </Card>
             </div>
+            <Card className="rounded-2xl shadow-sm">
+              <CardContent className="p-5">
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold">Mountain Readiness</h2>
+                    <p className="mt-1 text-sm text-slate-500">
+                      A hunting-focused snapshot of cardio, legs, pack tolerance, foot health, and recovery.
+                    </p>
+                  </div>
+                  <Badge className="w-fit">{overallMountainReadiness}% Overall</Badge>
+                </div>
+
+                <div className="mt-5 grid gap-4 lg:grid-cols-5">
+                  {mountainReadiness.map((item) => (
+                    <div key={item.metric} className="rounded-2xl border bg-white p-4 shadow-sm">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="font-bold text-slate-900">{item.metric}</p>
+                        <span className="text-sm font-semibold text-slate-600">{item.score}%</span>
+                      </div>
+                      <div className="mt-3">
+                        <Progress value={item.score} className="h-2" />
+                      </div>
+                      <div className="mt-3 rounded-xl bg-slate-50 p-3 text-xs text-slate-600">
+                        <span className="font-semibold text-slate-700">Current: </span>{item.current}
+                      </div>
+                      <div className="mt-2 rounded-xl bg-emerald-50 p-3 text-xs text-emerald-900">
+                        <span className="font-semibold">Goal: </span>{item.goal}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
             <div className="grid gap-5 lg:grid-cols-2">
               <Card className="rounded-2xl shadow-sm">
                 <CardContent className="p-5">
@@ -674,8 +709,8 @@ export default function HuntingPrepDashboard() {
                   </div>
                   <div className="rounded-2xl bg-white/10 p-4 text-center">
                     <p className="text-sm text-slate-300">Overall readiness</p>
-                    <p className="mt-1 text-4xl font-black">6.9/10</p>
-                    <p className="mt-1 text-sm text-slate-300">Good base, pack work still ahead</p>
+                    <p className="mt-1 text-4xl font-black">{overallMountainReadiness}%</p>
+                    <p className="mt-1 text-sm text-slate-300">Pack work started, mountain base building</p>
                   </div>
                 </div>
               </CardContent>
