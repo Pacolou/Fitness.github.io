@@ -292,7 +292,7 @@ export default function HuntingPrepDashboard() {
           <TabsList className="grid h-auto w-full grid-cols-2 rounded-2xl bg-white p-1 shadow-sm md:grid-cols-6">
             <TabsTrigger value="overview" className="rounded-xl">Overview</TabsTrigger>
             <TabsTrigger value="plan" className="rounded-xl">15-Week Plan</TabsTrigger>
-            <TabsTrigger value="week" className="rounded-xl">This Week</TabsTrigger>
+            <TabsTrigger value="week" className="rounded-xl">Training Plan</TabsTrigger>
             <TabsTrigger value="log" className="rounded-xl">Training Log</TabsTrigger>
             <TabsTrigger value="equipment" className="rounded-xl">Equipment</TabsTrigger>
             <TabsTrigger value="readiness" className="rounded-xl">Readiness</TabsTrigger>
@@ -554,8 +554,8 @@ export default function HuntingPrepDashboard() {
               <CardContent className="p-5">
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div>
-                    <h2 className="text-xl font-bold">Weekly Plan — Return Home Restart</h2>
-                    <p className="text-sm text-slate-500">Back home after travel. Restarting routine conservatively with foot-aware Phase 2 progression.</p>
+                    <h2 className="text-xl font-bold">Training Plan — Week of June 29</h2>
+                    <p className="text-sm text-slate-500">Current living training plan. Updated week by week from the latest workout and recovery feedback.</p>
                   </div>
                   <div className="flex flex-col gap-2 sm:flex-row">
                     <div className="relative">
