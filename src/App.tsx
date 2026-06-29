@@ -174,14 +174,17 @@ const stats = {
   height: "5'3 \"",
   startingWeight: 180,
   highestWeight: 186,
-  currentWeight: 183.4,
+  currentWeight: 181.6,
   bellyStart: 44,
-  bellyCurrent: 41,
+  bellyCurrent: 41.5,
   neck: 16,
-  thigh: 23.5,
-  biceps: 12.5,
+  thigh: 22,
+  biceps: 13,
   weeksCompleted: 8,
   currentPhase: "Phase 2 Restart",
+  packCurrent: 20,
+  packGoal: 50,
+  packNext: 25,
 };
 
 const progressData = [
@@ -189,6 +192,7 @@ const progressData = [
   { week: "High", weight: 186, belly: 43.5 },
   { week: "Wk 3", weight: 184.2, belly: 42.25 },
   { week: "Wk 5", weight: 182.3, belly: 41 },
+  { week: "Jun 29", weight: 181.6, belly: 41.5 },
 ];
 
 const conditioningData = [
@@ -197,7 +201,7 @@ const conditioningData = [
   { area: "Step-ups", score: 60 },
   { area: "Core", score: 70 },
   { area: "Mobility", score: 74 },
-  { area: "Pack Readiness", score: 50 },
+  { area: "Pack Readiness", score: 58 },
 ];
 
 const readinessSummary = [
@@ -219,11 +223,11 @@ const readinessSummary = [
   },
   {
     area: "Pack Readiness",
-    score: 30,
-    rating: "3/10",
-    status: "Not started yet",
-    evidence: "10 lb vest work has started, but hunting pack progression has not begun.",
-    next: "Start with empty pack, then 10 lb, 20 lb, and 30 lb progression.",
+    score: 58,
+    rating: "5.8/10",
+    status: "Pack progression started",
+    evidence: "First 20 lb pack treadmill session completed: 45 min at moderate incline, speed varied from 2.0 to 3.0 mph, foot felt good with no discomfort.",
+    next: "Repeat 20 lb pack work for 2–3 more sessions before increasing to 25 lb.",
   },
   {
     area: "Foot Health",
@@ -248,8 +252,8 @@ const readinessMilestones = [
   { label: "58 min weighted vest walk", status: "Done" },
   { label: "30 min travel treadmill with foot good", status: "Done" },
   { label: "First 60 min weighted vest walk", status: "Next" },
-  { label: "First empty-pack session", status: "Next" },
-  { label: "20 lb pack session", status: "Pending" },
+  { label: "First 20 lb pack session", status: "Done" },
+  { label: "25 lb pack session", status: "Next" },
   { label: "30 lb pack session", status: "Pending" },
   { label: "90 min outdoor hike", status: "Pending" },
   { label: "2 hr outdoor hike with elevation", status: "Pending" },
@@ -1310,6 +1314,29 @@ const workoutLog = [
     "notes": "First workout after returning home from vacation. Intentionally easy session to re-establish routine and evaluate foot response before resuming full Phase 2 training.",
     "foot": "Good",
     "feeling": "Successful return-to-routine session"
+  }  },
+  {
+    "session": "Session 057",
+    "date": "2026-06-29",
+    "day": "Monday",
+    "type": "Pack Conditioning + Monday Check-In",
+    "measurements": {
+      "weight": "181.6 lb",
+      "waist": "41.5 in",
+      "thigh": "22 in",
+      "biceps": "13 in"
+    },
+    "workout": [
+      "45 min treadmill",
+      "Moderate incline",
+      "20 lb total pack load",
+      "10 lb pack plus 10 lb vest inside pack",
+      "Speed varied from 2.0 mph to 3.0 mph",
+      "First true hunting pack progression session"
+    ],
+    "notes": "Pack progression officially started. Foot felt good with no discomfort; workout burn was muscular rather than pain.",
+    "foot": "Good; no discomfort",
+    "feeling": "Strong hunting-specific conditioning milestone"
   }
 ];
 
@@ -1323,24 +1350,25 @@ const huntingMilestones = [
   { label: "First 45 min vest walk", status: "Done" },
   { label: "58 min weighted vest treadmill session", status: "Done" },
   { label: "First 60 min vest walk", status: "Next" },
-  { label: "Start hunting pack progression", status: "Pending" },
-  { label: "20 lb pack session", status: "Pending" },
+  { label: "Start hunting pack progression", status: "Done" },
   { label: "30 lb pack session", status: "Pending" },
   { label: "2 hr outdoor hike", status: "Pending" },
   { label: "Fall hunting-ready conditioning block", status: "Pending" },
 ];
 
 const personalRecords = [
-  { metric: "Highest weight loss from peak", value: "2.6 lb" },
+  { metric: "Highest weight loss from peak", value: "4.4 lb" },
   { metric: "Latest Return Session", value: "35 min @ 2.0 mph" },
   { metric: "Program start date", value: "Apr 20, 2026" },
   { metric: "Longest treadmill session", value: "60 min" },
   { metric: "Longest weighted vest walk", value: "58 min" },
   { metric: "Current vest load", value: "10 lb" },
+  { metric: "Current pack load", value: "20 lb" },
+  { metric: "Next pack milestone", value: "25 lb" },
   { metric: "Best recent incline finish", value: "10 min full incline @ 2.5 mph" },
   { metric: "Step platform", value: "12 in" },
   { metric: "Lowest belly measurement", value: "41 in" },
-  { metric: "Current weight", value: "183.4 lb" },
+  { metric: "Current weight", value: "181.6 lb" },
   { metric: "Highest recorded weight", value: "186 lb" },
   { metric: "Longest Biktrix ride", value: "6.91 km" },
   { metric: "Longest Biktrix ride time", value: "17:30" },
@@ -1474,6 +1502,7 @@ export default function HuntingPrepDashboard() {
   const bellyLoss = stats.bellyStart - stats.bellyCurrent;
   const weightFromHigh = stats.highestWeight - stats.currentWeight;
   const phaseProgress = Math.min(100, Math.round((stats.weeksCompleted / 15) * 100));
+  const packProgress = Math.min(100, Math.round((stats.packCurrent / stats.packGoal) * 100));
 
   const filteredWorkouts = useMemo(() => {
     return workouts.filter((w) => {
@@ -1507,11 +1536,32 @@ export default function HuntingPrepDashboard() {
           </div>
         </motion.div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           <MetricCard title="Current Weight" value={`${stats.currentWeight} lb`} sub={`${weightFromHigh.toFixed(1)} lb down from high`} icon={Scale} tone="good" />
           <MetricCard title="Belly" value={`${stats.bellyCurrent}\"`} sub={`${bellyLoss}\" down from start`} icon={TrendingDown} tone="good" />
           <MetricCard title="Training Completed" value={`${stats.weeksCompleted} weeks`} sub="Phase 2 restart" icon={CalendarDays} />
-          <MetricCard title="Current Focus" value="Vest conditioning" sub="Building hunting endurance" icon={HeartPulse} tone="good" />
+          <MetricCard title="Current Focus" value="Pack conditioning" sub="Hunting-specific endurance" icon={HeartPulse} tone="good" />
+          <Card className="rounded-2xl shadow-sm border bg-white/90">
+            <CardContent className="p-5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="w-full">
+                  <p className="text-sm text-slate-500">Pack Progress</p>
+                  <p className="mt-1 text-2xl font-bold text-slate-900">{stats.packCurrent} lb</p>
+                  <p className="mt-1 text-sm text-slate-500">Goal: {stats.packGoal} lb · Next: {stats.packNext} lb</p>
+                  <div className="mt-3">
+                    <div className="mb-1 flex justify-between text-xs text-slate-500">
+                      <span>Current load</span>
+                      <span>{packProgress}%</span>
+                    </div>
+                    <Progress value={packProgress} className="h-2" />
+                  </div>
+                </div>
+                <div className="rounded-2xl bg-emerald-50 p-3">
+                  <Mountain className="h-5 w-5 text-emerald-700" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         <Tabs defaultValue="overview" className="space-y-5">
